@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlpineJS-Intro</title>
+    <script src="counter.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js" defer></script>
+    <script src="calc.js" defer></script>
+</head>
+
+<body style="background-color: #80ed99;">
+    <div class="container">
+        <h1 style="text-align: center; margin-top: 2em;"> Learning about the DOM</h1>
+        <script>
+            const h1Value = document.querySelector("h1")
+
+            console.log(h1Value.innerHTML)
+
+            h1Value.innerHTML += " - AND everything in between";
+        </script>
+        <hr style="height: 6px; border: none; background-color: black; margin-bottom: 1em;">
+        <div>
+            <h2 style="text-align: center;">Changing Values Based On Click Events</h2>
+            <hr>
+
+            <div class="row">
+                <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                    <h3 style="text-align: center;">Using click events</h3>
+                    <div x-data="{title: 'Hello Alpine'}">
+                        <p x-text="title"></p>
+                        <button @click="title='Alpine really rocks!'">Click Me</button>
+                    </div>
+                </div>
+                <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                    <div  x-data="{display: false}">
+                        <h3 style="text-align: center;">Hide or Show</h3>
+                        <div x-show.transition="display">Upon a click, I appear! And if you click again, I disappear!</div> <br>
+                        <button @click="display=!display">Show/Hide</button>
+                    </div>
+                </div>
+
+                <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                    <div x-data="{robots: 'Terminate'}">
+                        <h3 style="text-align: center;">Using references to display 'tag' content</h3>
+                        <div x-ref="actual">I am in a tag but I can change...</div> <br>
+                        <button @click="$refs.actual.innerText = 'You have changed me by the press of a button'">Change sentence
+                            here</button>
+            
+                    </div>
+                </div>
+                <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                    <div x-data="{weather: 'cold'}">
+                        <h3 style="text-align: center;">Using conditional statements</h3>
+                        <template x-if="weather == 'cold'">
+                            <p>Today is a cold day</p>
+                        </template>
+                        <template x-if="weather == 'hot'">
+                            <p>Today is a hot day</p>
+                        </template> <br>
+                        <button @click="weather='hot'">Change the weather</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div style="text-align: center;" x-data="{countdown: 1000}" x-init="setInterval(function(){
+                countdown--;
+            },1000)">
+                <h2>Countdown from 1000</h2>
+                <h3 x-text="countdown"></h3>
+            </div>
+        <hr>
+        <h2 style="text-align: center;">Exploring More Functions With AlpineJS</h2>
+        <hr>
+        <div class="row">
+            <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                <div x-data="{count: 1}">
+                    <h3 style="text-align: center;">Add one or take away one</h3>
+                    <p x-text="count"></p>
+                    <button style="margin: 0.5em;" @click="count++">Count Up</button>
+    
+                    <button @click="if(count > 0) count--">Count Down</button>
+                </div>
+            </div>
+
+            <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                <div x-data="{title: '' }">
+                    <h3 style="text-align: center;">Binding input to what is displayed</h3>
+                    <p x-text="title"></p>
+                    <input type="text" x-model="title" placeholder="Type something here...">
+                </div>
+            </div>
+
+            <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                <div x-data="{ Warning: 'Do NOT create a loop without stating the condition which will terminate it, you may crash your console!'}">
+                    <h3 style="text-align: center;">Dispalying a <span style="color: red;">warning</span> nested in an HTML tag</h3>
+                    <p x-html="Warning"></p>
+                </div>
+            </div>
+
+            <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                <div x-data="{Groceries:['Bread', 'Butter', 'Cheese', 'Coldrink']}">
+                    <h3 style="text-align: center;">Using loops to print items</h3>
+                    <p>Grocery items</p>
+                    <ul>
+                        <template x-for="x in Groceries">
+                            <li x-text="x"></li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!--End of AlpineJS tutorial-->
+        <hr>
+        <h2 style="text-align: center;">Counter widgets</h2>
+        <hr>
+        <div class="row" style="text-align: justify;">
+            <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                <h3 style="text-align: center;">Vanilla DOM Incrementing and Decrementing Widget</h3>
+                <p>This button countains a minimum value of 0 and an infinite maximum value</p>
+                <div class="theNumber">0</div>
+                <br>
+                <button class="increment">Increment</button>
+                <button class="decrement">Decrement</button>
+            </div>
+
+            <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                <div x-data="{counter: 0}">
+                    <h3 style="text-align: center;">AlpineJS Incrementing and Decrementing Widget</h3>
+                    <p>This button countains a minimum value of 0 and an infinite maximum value</p>
+                    <div x-text="counter"></div>
+                    <br>
+                    <button @click="counter++">Increment</button>
+                    <button @click="if(counter > 0)counter--">Decrement</button>
+                </div>
+            </div>
+
+
+
+            <div class="col-md" style="border: solid; padding: 2em; margin: 1em; background-color: #74d3ae; color: #011936;">
+                <div x-data="counter">
+                    <h3 style="text-align: center;">Using External JavaScript with AlpineJS</h3>
+                    <br>
+                    <p>This button countains a minimum value of 0 and a maximum value of 9</p>
+                    <div x-text="count"></div>
+                    <br>
+                    <button @click="increment()">Increment</button>
+                    <button @click="decrement()">Decrement</button>
+                    <button @click="reset()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <br> <br> <br>
+
+</body>
+
+<footer class="shadow-sm p-3 mb-5 bg-body-tertiary">
+    <p>
+        © 2023 Lawrence & Ulovn Holdings. All rights reserved.
+    </p>
+</footer>
+
+</html>
